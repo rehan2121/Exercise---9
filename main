@@ -1,0 +1,116 @@
+Task_editor = []    # This Is The Global List For Stored The Data Or Task's
+
+def add_task():
+    date = input("Enter The Date (YYYY-MM-DD): ")
+    desc = input("Enter The Description: ")
+    amnt = int(input("Enter The Amount: "))
+    cate = input("Enter The Category Of The Product: ")
+
+    # Adding The Task In Global List
+    task = {
+        "Date":date,
+        "Description":desc,
+        "Amount":amnt,
+        "Category":cate
+    }
+
+    Task_editor.append(task)
+    print("Task Is Stored!\n", task)
+
+
+def view_task():
+    if (Task_editor):
+        for index, task in enumerate(Task_editor, start=1):
+            print(f"{index}. {task['Date']} | {task['Description']} | {task['Amount']} | {task['Category']}")
+    else:
+        print("No tasks found.")
+
+def delete_task():
+    if not Task_editor:
+        print("There are no tasks to delete.")
+        return print("Please Add The Task")
+
+    # Print the tasks with their corresponding numbers
+    for index, task in enumerate(Task_editor, start=1):
+        print(f"{index}. {task}")
+
+    delete = int(input("Enter the task number to delete: "))
+
+    # Deleting The Tassk
+    if (1 <= delete <= len(Task_editor)):
+        deleted_task = Task_editor.pop(delete - 1)
+        # print(f"The task \"{deleted_task}\" has been deleted.")
+        print(f"The Task Is Deleted!")
+    else:
+        print("Invalid task number.")
+
+def mark_as_complete():
+
+    # print(Task_editor) This Is Printing Twice The Task
+    for index, task in enumerate(Task_editor, start=1):
+        print(f"{index}, {task}")
+
+    complete = int(input("Enter The Number : "))
+    
+    if (1 <= complete <= len(Task_editor)):
+        print(f"Mark As a Mark As a Complete : {Task_editor[complete - 1]}")
+        # print(complete.pop(Task_editor))
+    else:
+        print("Nothing Edited Yet")
+
+def monthly_spending():
+    if not Task_editor:
+        print("First Please Add The Task Please")
+    else:
+        for index, task in enumerate(Task_editor, start=1):
+            print(f"{index}, {task}")
+
+        adding_task = sum(task["Amount"] for task in Task_editor)
+        if (adding_task == 1000000):
+            print(f"This Is The Monthly Spending : ₹{adding_task} Laks")
+        elif (adding_task == 10000000):
+            print(f"This Is The Monthly Spending : ₹{adding_task} Crore")
+        else:
+            print(f"This Is The Monthly Spending : ₹{adding_task} Billion")
+
+
+def menu_display():
+    while True:
+        greet = "\n<-----Welcome To RP Task Editor----->"
+        menu = ("""
+        1. Add Task
+        2. View Task
+        3. Delete Task
+        4. Mark As Complete Task
+        5. Monthly Spending
+        6. Exit The Programme
+        """)
+        print(greet.center(50))
+        print(menu.center(50))
+
+        Choose = int(input("Enter The Number : "))
+        if (Choose == 1):
+            add_task()
+
+        elif (Choose == 2):
+            view_task()
+
+        elif (Choose == 3):
+            delete_task()
+
+        elif (Choose == 4):
+            mark_as_complete()
+        
+        elif (Choose == 5):
+            monthly_spending()
+
+        elif (Choose == 6):
+            thank = "<-----Thank You For Visiting The Programme----->"
+            print(thank.center(50))
+            quit()
+
+        else:
+            print(f"!We Will Working On This Features!")
+            quit()
+
+menu_display()
